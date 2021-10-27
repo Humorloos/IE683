@@ -15,25 +15,35 @@ def get_integrated_schema_target_df():
     return pd.DataFrame(columns=list(integrated_schema['name']) + ['source'])
 	
 
-def to_xml(df, filename=None, mode='w'):
+# declaring and overriding the 'to_xml' in pandas
+def to_xml(df, filename=None, mode='w+'):
+    """
+    Generates the integrated schema xml file corresponding to each dataframe that is parsed as input
+    """
+    plural_dict = {'country': 'countries','genre':'genres','actor_names':'actors',
+               'director':'directors','language': 'languages','production_company':'production_companies',
+               'writer':'writers','tags':'tags', 'country_availability':'countries_availability'}
     def row_to_xml(row):
-        xml = ['\t<movie>']
+        xml = ['    <movie>']
         for i, col_name in enumerate(row.index):
-            # for list columns
+            # case for list columns
             if isinstance(row.iloc[i], list):
-                xml.append(f'\t\t<{col_name}s>')
+                parent_tag = plural_dict[col_name]
+                xml.append(f'        <{parent_tag}>')
                 for item in row.iloc[i]:
-                    xml.append(f'\t\t\t<{col_name}>{item}</{col_name}>')
-                xml.append(f'\t\t</{col_name}s>')
-            # for normal columns
+                    xml.append(f'            <{col_name}>{item}</{col_name}>')
+                xml.append(f'        </{parent_tag}>')
+            # case for regular columns
             else:
-                xml.append(f'\t\t<{col_name}>{row.iloc[i]}</{col_name}>')
-        xml.append('\t</movie>')
+                xml.append(f'        <{col_name}>{row.iloc[i]}</{col_name}>')
+        xml.append('    </movie>')
         return '\n'.join(xml)
     res = '\n'.join(df.apply(row_to_xml, axis=1))
-    res = f'<movies>\n {res} \n</movies>'
+    res = f"<?xml version='1.0' encoding='utf-8'?>\n<movies>\n{res}\n</movies>"
 
     if filename is None:
         return res
     with open(filename, mode) as f:
         f.write(res)
+
+pd.DataFrame.to_xml = to_xml
