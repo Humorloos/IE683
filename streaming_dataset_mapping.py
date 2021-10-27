@@ -19,7 +19,7 @@ simple_move_map = {
     'duration' : 'runtime',
     'year' : 'year',
     'imdb score' : 'imdb',
-    'disney+ flag' : 'disney+',
+    'disney flag' : 'disney+',
     'hulu flag' : 'hulu',
     'netflix flag' : 'netflix',
     'prime video flag' : 'prime video'
