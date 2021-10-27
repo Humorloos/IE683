@@ -8,7 +8,7 @@ target_df = get_integrated_schema_target_df()
 netflix_df = pd.read_csv(MOVIES_DATA_DIR.joinpath('netflix.csv'))
 
 # Attributes that can be copied (but target names are lower case)
-lower_copy_columns = ["Title", "Country Availability", "Hidden Gem Score", "Image", "IMDb Link", "Netflix Link",
+lower_copy_columns = ["Title", "Hidden Gem Score", "Image", "IMDb Link", "Netflix Link",
                       "Netflix Release Date", "Poster", "Series or Movie", "IMDb Score", "IMDb Votes"]
 target_df[[col.lower() for col in lower_copy_columns]] = netflix_df[lower_copy_columns]
 
@@ -23,6 +23,9 @@ target_df[list(comma_space_to_list_columns.keys())] = netflix_df[comma_space_to_
 
 # Split tags by only comma without trailing space
 target_df.loc[netflix_df['Tags'].notnull(), 'tags'] = netflix_df['Tags'].dropna().apply(lambda tags: tags.split(','))
+
+# Split country availability by only comma without trailing space
+target_df["country availability"] = netflix_df["Country Availability"].str.split(',')
 
 # Transform release date to datetime
 target_df['release date'] = netflix_df['Release Date'].astype('datetime64')
