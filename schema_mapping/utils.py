@@ -2,7 +2,7 @@ import pandas as pd
 
 from constants import MOVIES_DATA_DIR
 
-
+# declaring the target_df dataframe structure definer function
 def get_integrated_schema_target_df():
     """
     Generates empty DataFrame with all columns that are supposed to be filled with values from the Movie datasets
