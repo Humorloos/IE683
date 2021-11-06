@@ -34,3 +34,28 @@ imdb_df['budget'] = imdb_df['budget'].str.extract('(\d+)', expand=False)
 target_df['budget'] = target_df['budget'].astype(float)
 
 target_df['source'] = 'imdb'
+
+# copying dataframe index into the 
+target_df['id'] = target_df.index
+
+# creating a unique id, currently commenting this out based on the
+# discussion done in the call.
+target_df.id = target_df.id.apply(lambda id: 'imdb_' + str(id))
+
+# getting the list of all columns for 'target_df' 
+cols = target_df.columns.tolist()
+cols = cols[-2:] + cols[:-2]
+print(cols)
+# rearranging column order in the dataframe 
+target_df = target_df[cols]
+
+# replacing the spaces in columns to create xml compliant tags
+target_df.columns = target_df.columns.str.replace(' ', '_')
+
+
+
+
+
+
+
+
