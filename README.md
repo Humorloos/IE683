@@ -1,6 +1,6 @@
 # Repository for Web Data Integration Project
 
-### Outline Overleaf Project Workspace:
+### Overleaf Project Workspace:
  - [Overleaf Workspace Link](https://www.overleaf.com/7231126958ypyhswcppvbz)
 
 ### Integrated Schema Mapping Workspace:
