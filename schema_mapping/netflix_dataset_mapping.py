@@ -22,6 +22,7 @@ target_df[list(comma_space_to_list_columns.keys())] = netflix_df[comma_space_to_
     lambda column: column.str.split(', '))
 
 # Split tags by only comma without trailing space
+netflix_df['Tags'] = netflix_df.Tags.str.replace("&", "and")
 target_df.loc[netflix_df['Tags'].notnull(), 'tags'] = netflix_df['Tags'].dropna().apply(lambda tags: tags.split(','))
 
 # Split country availability by only comma without trailing space
@@ -38,4 +39,16 @@ target_df.loc[netflix_df['Runtime'].notnull(), 'duration'] = netflix_df['Runtime
 # transform budget to float
 target_df['budget'] = netflix_df['Boxoffice'].str.replace(r'\$|,', '').astype(float)
 
+# specifying the data source
 target_df['source'] = 'netflix'
+
+# Replacing the special character in the `target_df` dataframe
+target_df['title'] = target_df.title.str.replace("&", "and")
+
+# getting the list of all columns for 'target_df' 
+cols = target_df.columns.tolist()
+cols = cols[-2:] + cols[:-2]
+# print(cols)
+
+# creating new `target_df` with rearranged columns
+target_df = target_df[cols]

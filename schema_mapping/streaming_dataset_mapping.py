@@ -45,7 +45,10 @@ target_df.columns = target_df.columns.str.replace(' ', '_')
 # getting the list of all columns for 'target_df' 
 cols = target_df.columns.tolist()
 cols = cols[-2:] + cols[:-2]
-print(cols)
+# print(cols)
 
 # creating new `target_df` with rearranged columns
 target_df = target_df[cols]
+
+# Replacing the special character in the `target_df` dataframe
+target_df['title'] = target_df.title.str.replace("&", "and")

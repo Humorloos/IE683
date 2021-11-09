@@ -22,6 +22,9 @@ imdb_df_map = ({'genre': 'genre',
                 'writer': 'writer',
                 'director': 'director',
                 'country': 'country'})
+# Replacing the special character "&" in the dataframe
+imdb_df[list(imdb_df_map.keys())] = imdb_df[imdb_df_map.values()].apply(
+    lambda column: column.str.replace("&", "and"))
 target_df[list(imdb_df_map.keys())] = imdb_df[imdb_df_map.values()].apply(
     lambda column: column.str.split(', '))
 
@@ -45,17 +48,10 @@ target_df.id = target_df.id.apply(lambda id: 'imdb_' + str(id))
 # getting the list of all columns for 'target_df' 
 cols = target_df.columns.tolist()
 cols = cols[-2:] + cols[:-2]
-print(cols)
+# print(cols)
+
 # rearranging column order in the dataframe 
 target_df = target_df[cols]
 
 # replacing the spaces in columns to create xml compliant tags
 target_df.columns = target_df.columns.str.replace(' ', '_')
-
-
-
-
-
-
-
-
