@@ -19,7 +19,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
+import winterMoviesExample.model.Movie;
 
 /**
  * {@link AttributeValueFuser} for the titles of {@link Movie}s.

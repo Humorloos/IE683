@@ -32,17 +32,17 @@ import de.uni_mannheim.informatik.dws.winter.model.Performance;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByDecadeGenerator;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator10Years;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator2Years;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorJaccard;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorLevenshtein;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDirectorComparatorLowerCaseJaccard;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorEqual;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorJaccard;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import winterMoviesExample.identityresolution.MovieBlockingKeyByDecadeGenerator;
+import winterMoviesExample.identityresolution.MovieDateComparator10Years;
+import winterMoviesExample.identityresolution.MovieDateComparator2Years;
+import winterMoviesExample.identityresolution.MovieDirectorComparatorJaccard;
+import winterMoviesExample.identityresolution.MovieDirectorComparatorLevenshtein;
+import winterMoviesExample.identityresolution.MovieDirectorComparatorLowerCaseJaccard;
+import winterMoviesExample.identityresolution.MovieTitleComparatorEqual;
+import winterMoviesExample.identityresolution.MovieTitleComparatorJaccard;
+import winterMoviesExample.identityresolution.MovieTitleComparatorLevenshtein;
+import winterMoviesExample.model.Movie;
+import winterMoviesExample.model.MovieXMLReader;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**

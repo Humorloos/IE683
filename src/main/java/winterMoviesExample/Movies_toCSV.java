@@ -21,9 +21,9 @@ import org.xml.sax.SAXException;
 
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieCSVFormatter;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import winterMoviesExample.model.Movie;
+import winterMoviesExample.model.MovieCSVFormatter;
+import winterMoviesExample.model.MovieXMLReader;
 
 /**
  * Converts the XML datasets to CSV.

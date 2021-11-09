@@ -15,8 +15,8 @@ package winterMoviesExample.identityresolution;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Actor;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
+import winterMoviesExample.model.Actor;
+import winterMoviesExample.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;

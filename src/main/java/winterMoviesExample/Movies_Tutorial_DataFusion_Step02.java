@@ -27,17 +27,17 @@ import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionStrategy;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.evaluation.ActorsEvaluationRule;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.evaluation.DateEvaluationRule;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.evaluation.DirectorEvaluationRule;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.evaluation.TitleEvaluationRule;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.fusers.ActorsFuserUnion;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.fusers.DateFuserVoting;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.fusers.DirectorFuserLongestString;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.datafusion.fusers.TitleFuserShortestString;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLFormatter;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import winterMoviesExample.datafusion.evaluation.ActorsEvaluationRule;
+import winterMoviesExample.datafusion.evaluation.DateEvaluationRule;
+import winterMoviesExample.datafusion.evaluation.DirectorEvaluationRule;
+import winterMoviesExample.datafusion.evaluation.TitleEvaluationRule;
+import winterMoviesExample.datafusion.fusers.ActorsFuserUnion;
+import winterMoviesExample.datafusion.fusers.DateFuserVoting;
+import winterMoviesExample.datafusion.fusers.DirectorFuserLongestString;
+import winterMoviesExample.datafusion.fusers.TitleFuserShortestString;
+import winterMoviesExample.model.Movie;
+import winterMoviesExample.model.MovieXMLFormatter;
+import winterMoviesExample.model.MovieXMLReader;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**

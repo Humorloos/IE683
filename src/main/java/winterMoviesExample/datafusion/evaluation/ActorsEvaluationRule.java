@@ -18,8 +18,8 @@ import de.uni_mannheim.informatik.dws.winter.datafusion.EvaluationRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Actor;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
+import winterMoviesExample.model.Actor;
+import winterMoviesExample.model.Movie;
 
 /**
  * {@link EvaluationRule} for the actors of {@link Movie}s. The rule simply
