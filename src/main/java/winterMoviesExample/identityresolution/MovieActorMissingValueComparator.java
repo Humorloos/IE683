@@ -17,8 +17,8 @@ import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparat
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Actor;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
+import winterMoviesExample.model.Actor;
+import winterMoviesExample.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.utils.query.Q;
 
 import java.util.HashSet;

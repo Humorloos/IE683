@@ -15,7 +15,7 @@ import java.io.File;
 
 import java.util.*;
 
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.*;
+import winterMoviesExample.identityresolution.*;
 import org.slf4j.Logger;
 
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
@@ -33,8 +33,8 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.FeatureVectorDat
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.RecordCSVFormatter;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import winterMoviesExample.model.Movie;
+import winterMoviesExample.model.MovieXMLReader;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**

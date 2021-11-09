@@ -22,12 +22,12 @@ import de.uni_mannheim.informatik.dws.winter.model.Performance;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieActorMissingValueComparator;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieBlockingKeyByTitleGenerator;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator2Years;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorJaccard;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import winterMoviesExample.identityresolution.MovieActorMissingValueComparator;
+import winterMoviesExample.identityresolution.MovieBlockingKeyByTitleGenerator;
+import winterMoviesExample.identityresolution.MovieDateComparator2Years;
+import winterMoviesExample.identityresolution.MovieTitleComparatorJaccard;
+import winterMoviesExample.model.Movie;
+import winterMoviesExample.model.MovieXMLReader;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import org.slf4j.Logger;
 

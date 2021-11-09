@@ -28,10 +28,10 @@ import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.CSVCorrespondenceFormatter;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieDateComparator10Years;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.identityresolution.MovieTitleComparatorLevenshtein;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.Movie;
-import de.uni_mannheim.informatik.dws.winter.usecase.movies.model.MovieXMLReader;
+import winterMoviesExample.identityresolution.MovieDateComparator10Years;
+import winterMoviesExample.identityresolution.MovieTitleComparatorLevenshtein;
+import winterMoviesExample.model.Movie;
+import winterMoviesExample.model.MovieXMLReader;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 
 /**
