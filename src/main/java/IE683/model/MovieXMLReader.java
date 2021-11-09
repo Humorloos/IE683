@@ -11,7 +11,6 @@
  */
 package IE683.model;
 
-import IE683.model.Movie;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
 import org.w3c.dom.Node;
@@ -35,9 +34,10 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> {
         Movie Movie = new Movie(id, provenanceInfo);
 
         // fill the attributes
+        Movie.setId(getValueFromChildElement(node, "id"));
         Movie.setTitle(getValueFromChildElement(node, "title"));
         Movie.setSource(getValueFromChildElement(node, "source"));
-        Movie.setImdb_votes(getValueFromChildElement(node, "imdb_votes"));
+        Movie.setImdbVotes(getValueFromChildElement(node, "imdb_votes"));
         Movie.setOriginal_title(getValueFromChildElement(node, "original_title"));
         Movie.setReviews_from_critics(getValueFromChildElement(node, "reviews_from_critics"));
         Movie.setReviews_from_users(getValueFromChildElement(node, "review_from_users"));
@@ -51,23 +51,23 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> {
         Movie.setHulu_flag(getValueFromChildElement(node, "hulu_flag"));
         Movie.setNetflix_flag(getValueFromChildElement(node, "netflix_flag"));
         Movie.setPrime_video_flag(getValueFromChildElement(node, "prime_video_flag"));
-        Movie.setImdb_score(getDoubleFromChildElement(node, "imdb_score"));
-        Movie.setAvg_vote(getDoubleFromChildElement(node, "avg_vote"));
+        Movie.setImdbScore(getDoubleFromChildElement(node, "imdb_score"));
+        Movie.setAvgVote(getDoubleFromChildElement(node, "avg_vote"));
         Movie.setBudget(getDoubleFromChildElement(node, "budget"));
         Movie.setHidden_gem_score(getDoubleFromChildElement(node, "hidden_gem_score"));
-        Movie.setDuration(getIntegerFromChildElement(node, "duration"));
-        Movie.setYear(getIntegerFromChildElement(node, "year"));
-        Movie.setRelease_date(getDateFromChildElement(node, "release_date"));
+        Movie.setDuration(getDoubleFromChildElement(node, "duration"));
+        Movie.setYear(getDoubleFromChildElement(node, "year"));
+        Movie.setReleaseDate(getDateFromChildElement(node, "release_date"));
         Movie.setNetflix_release_date(getDateFromChildElement(node, "netflix_release_date"));
-		Movie.setProduction_companies(getListFromChildElement(node, "production_companies"));
-		Movie.setGenres(getListFromChildElement(node, "genres"));
-		Movie.setActors(getListFromChildElement(node, "actors"));
-		Movie.setDirectors(getListFromChildElement(node, "directors"));
-		Movie.setLanguages(getListFromChildElement(node, "languages"));
-		Movie.setWriters(getListFromChildElement(node, "writers"));
-		Movie.setCountries(getListFromChildElement(node, "countries"));
-		Movie.setCountries_availability(getListFromChildElement(node, "countries_availability"));
-		Movie.setTags(getListFromChildElement(node, "tags"));
+        Movie.setProductionCompanies(getListFromChildElement(node, "production_companies"));
+        Movie.setGenres(getListFromChildElement(node, "genres"));
+        Movie.setActors(getListFromChildElement(node, "actors"));
+        Movie.setDirectors(getListFromChildElement(node, "directors"));
+        Movie.setLanguages(getListFromChildElement(node, "languages"));
+        Movie.setWriters(getListFromChildElement(node, "writers"));
+        Movie.setCountries(getListFromChildElement(node, "countries"));
+        Movie.setCountries_availability(getListFromChildElement(node, "countries_availability"));
+        Movie.setTags(getListFromChildElement(node, "tags"));
 
         return Movie;
     }
@@ -76,11 +76,6 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> {
     protected String getValueFromChildElement(Node node, String childName) {
         String value = super.getValueFromChildElement(node, childName);
         return value == null || value.equals("nan") ? null : value;
-    }
-
-    protected Integer getIntegerFromChildElement(Node node, String childName) {
-        String value = getValueFromChildElement(node, childName);
-        return value == null ? null : (int) Double.parseDouble(value);
     }
 
     protected Double getDoubleFromChildElement(Node node, String childName) {

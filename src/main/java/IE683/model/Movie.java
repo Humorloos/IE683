@@ -91,12 +91,12 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
     protected String id;
     private String source;
     private String title;
-    private LocalDateTime release_date;
-    private Integer duration;
-    private String imdb_votes;
-    private Double imdb_score;
-    private Double avg_vote;
-    private Integer year;
+    private LocalDateTime releaseDate;
+    private Double duration;
+    private String imdbVotes;
+    private Double imdbScore;
+    private Double avgVote;
+    private Double year;
     private Double budget;
     private String original_title;
     private String reviews_from_critics;
@@ -117,7 +117,7 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
     private List<String> actors;
     private List<String> directors;
     private List<String> languages;
-    private List<String> production_companies;
+    private List<String> productionCompanies;
     private List<String> writers;
     private List<String> countries;
     private List<String> countries_availability;
@@ -131,7 +131,7 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
         actors = new LinkedList<>();
         directors = new LinkedList<>();
         languages = new LinkedList<>();
-        production_companies = new LinkedList<>();
+        productionCompanies = new LinkedList<>();
         writers = new LinkedList<>();
         countries = new LinkedList<>();
         countries_availability = new LinkedList<>();
@@ -175,12 +175,12 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
         this.actors = actors;
     }
 
-    public LocalDateTime getRelease_date() {
-        return release_date;
+    public LocalDateTime getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease_date(LocalDateTime release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(LocalDateTime releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public List<String> getDirectors() {
@@ -191,11 +191,11 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
         this.directors = directors;
     }
 
-    public Integer getDuration() {
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 
@@ -207,32 +207,28 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
         this.languages = languages;
     }
 
-    public String getImdb_votes() {
-        return imdb_votes;
+    public String getImdbVotes() {
+        return imdbVotes;
     }
 
-    public void setImdb_votes(String imdb_votes) {
-        this.imdb_votes = imdb_votes;
+    public void setImdbVotes(String imdbVotes) {
+        this.imdbVotes = imdbVotes;
     }
 
-    public void setIdb_votes(String imdb_votes) {
-        this.imdb_votes = imdb_votes;
+    public List<String> getProductionCompanies() {
+        return productionCompanies;
     }
 
-    public List<String> getProduction_companies() {
-        return production_companies;
+    public void setProductionCompanies(List<String> productionCompanies) {
+        this.productionCompanies = productionCompanies;
     }
 
-    public void setProduction_companies(List<String> production_companies) {
-        this.production_companies = production_companies;
+    public Double getImdbScore() {
+        return imdbScore;
     }
 
-    public Double getImdb_score() {
-        return imdb_score;
-    }
-
-    public void setImdb_score(Double imdb_score) {
-        this.imdb_score = imdb_score;
+    public void setImdbScore(Double imdbScore) {
+        this.imdbScore = imdbScore;
     }
 
     public List<String> getWriters() {
@@ -243,12 +239,12 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
         this.writers = writers;
     }
 
-    public Double getAvg_vote() {
-        return avg_vote;
+    public Double getAvgVote() {
+        return avgVote;
     }
 
-    public void setAvg_vote(Double avg_vote) {
-        this.avg_vote = avg_vote;
+    public void setAvgVote(Double avgVote) {
+        this.avgVote = avgVote;
     }
 
     public List<String> getCountries() {
@@ -259,11 +255,11 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
         this.countries = countries;
     }
 
-    public Integer getYear() {
+    public Double getYear() {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(Double year) {
         this.year = year;
     }
 
