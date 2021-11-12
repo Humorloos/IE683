@@ -1,7 +1,7 @@
 import pandas as pd
-
+import numpy as np
 from constants import MOVIES_DATA_DIR
-from utils import get_integrated_schema_target_df
+from utils import get_integrated_schema_target_df, to_xml
 
 target_df = get_integrated_schema_target_df()
 
@@ -28,6 +28,14 @@ target_df.loc[netflix_df['Tags'].notnull(), 'tags'] = netflix_df['Tags'].dropna(
 # Split country availability by only comma without trailing space
 target_df["country availability"] = netflix_df["Country Availability"].str.split(',')
 
+# transform release date to datetime
+# target_df['release date'] = netflix_df['Release Date'].astype('datetime64')
+# Change based on discussed issue 
+# #50: Transform release_date attributes in netflix and imdb to year
+# Not converting the 'release year' field to 'datetime' as that information
+# is lost during the xml file creation
+target_df.loc[netflix_df['Release Date'].notnull(), 'release year'] = netflix_df['Release Date'].dropna().apply(lambda yr: yr.split(' ')[2])
+
 # Transform release date to datetime
 target_df['release date'] = netflix_df['Release Date'].astype('datetime64')
 
@@ -52,3 +60,8 @@ cols = cols[-2:] + cols[:-2]
 
 # creating new `target_df` with rearranged columns
 target_df = target_df[cols]
+
+# xml tags can't be space separated
+target_df.columns = target_df.columns.str.replace(' ', '_')
+# writing the 
+target_df.to_xml(MOVIES_DATA_DIR.joinpath('netflix.xml'))

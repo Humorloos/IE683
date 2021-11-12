@@ -18,7 +18,7 @@ target_df.id = source_df.id.apply(lambda id: 'streaming_' + str(int(id)-1))
 simple_move_map = {
     'title' : 'title',
     'duration' : 'runtime',
-    'year' : 'year',
+    'release year' : 'year',
     'imdb score' : 'imdb',
     'disney flag' : 'disney+',
     'hulu flag' : 'hulu',
@@ -52,3 +52,6 @@ target_df = target_df[cols]
 
 # Replacing the special character in the `target_df` dataframe
 target_df['title'] = target_df.title.str.replace("&", "and")
+
+# saving the 'target_df' dataset as integrated schema xml file
+target_df.to_xml(MOVIES_DATA_DIR.joinpath('streaming.xml'))
