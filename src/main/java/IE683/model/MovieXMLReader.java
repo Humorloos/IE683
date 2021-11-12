@@ -56,8 +56,7 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> {
         Movie.setBudget(getDoubleFromChildElement(node, "budget"));
         Movie.setHidden_gem_score(getDoubleFromChildElement(node, "hidden_gem_score"));
         Movie.setDuration(getDoubleFromChildElement(node, "duration"));
-        Movie.setYear(getDoubleFromChildElement(node, "year"));
-        Movie.setReleaseDate(getDateFromChildElement(node, "release_date"));
+        Movie.setReleaseYear(getDoubleFromChildElement(node, "release_year"));
         Movie.setNetflix_release_date(getDateFromChildElement(node, "netflix_release_date"));
         Movie.setProductionCompanies(getListFromChildElement(node, "production_companies"));
         Movie.setGenres(getListFromChildElement(node, "genres"));

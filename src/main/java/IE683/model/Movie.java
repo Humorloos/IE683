@@ -91,12 +91,11 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
     protected String id;
     private String source;
     private String title;
-    private LocalDateTime releaseDate;
+    private Double releaseYear;
     private Double duration;
     private String imdbVotes;
     private Double imdbScore;
     private Double avgVote;
-    private Double year;
     private Double budget;
     private String original_title;
     private String reviews_from_critics;
@@ -175,12 +174,12 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
         this.actors = actors;
     }
 
-    public LocalDateTime getReleaseDate() {
-        return releaseDate;
+    public Double getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setReleaseDate(LocalDateTime releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleaseYear(Double releaseYear) {
+        this.releaseYear = releaseYear;
     }
 
     public List<String> getDirectors() {
@@ -253,14 +252,6 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
 
     public void setCountries(List<String> countries) {
         this.countries = countries;
-    }
-
-    public Double getYear() {
-        return year;
-    }
-
-    public void setYear(Double year) {
-        this.year = year;
     }
 
     public Double getBudget() {
