@@ -1,9 +1,7 @@
 package IE683.identityResolution;
 
-import IE683.blocker.ReleaseDateBlocker;
+import IE683.blocker.ReleaseYearBlocker;
 import IE683.blocker.TitleBlocker;
-import IE683.blocker.YearBlocker;
-import IE683.comparator.list.ProductionCompaniesComparator;
 import IE683.comparator.numeric.AvgVoteComparator;
 import IE683.comparator.numeric.DurationComparator;
 import IE683.model.Movie;
@@ -15,7 +13,6 @@ import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 public class identityResolutionIT {
@@ -30,25 +27,13 @@ public class identityResolutionIT {
     }
 
     @Test
-    void testReleaseDateBlocker() throws Exception {
+    void testReleaseYearBlocker() throws Exception {
         LinearCombinationMatchingRuleWithPenalty<Movie, Attribute> rule =
                 new LinearCombinationMatchingRuleWithPenalty<>(0.5);
         rule.addComparator(new AvgVoteComparator(), 1, 0);
-        StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<>(new ReleaseDateBlocker());
+        StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<>(new ReleaseYearBlocker());
 
         resolveIdentities(rule, blocker, "imdb", "netflix");
-    }
-
-    @Ignore("Does not work yet because Year attribute only exists in streaming dataset")
-    @Test
-    void testYearBlocker() throws Exception {
-
-        LinearCombinationMatchingRuleWithPenalty<Movie, Attribute> rule =
-                new LinearCombinationMatchingRuleWithPenalty<>(0.5);
-        rule.addComparator(new ProductionCompaniesComparator(0.8), 1, 0);
-        StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<>(new YearBlocker());
-
-        resolveIdentities(rule, blocker, "imdb", "streaming");
     }
 
     private void resolveIdentities(

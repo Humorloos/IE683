@@ -9,12 +9,12 @@ import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.DataIterator;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
-public class YearBlocker extends
+public class ReleaseYearBlocker extends
         RecordBlockingKeyGenerator<Movie, Attribute> {
     @Override
     public void generateBlockingKeys(Movie record, Processable<Correspondence<Attribute, Matchable>> correspondences,
                                      DataIterator<Pair<String, Movie>> resultCollector) {
-        Double year = record.getYear();
-        resultCollector.next(new Pair<>(year == null ? "" : year.toString(), record));
+        Double releaseYear = record.getReleaseYear();
+        resultCollector.next(new Pair<>(releaseYear == null ? "" : releaseYear.toString(), record));
     }
 }
