@@ -10,6 +10,8 @@
 /data/twitter/
 /data/archive (1).zip
 /winter/
+/data/Movies/input/
+/data/Movies/output/
 
 #######################
 # Python's .gitignore #
