@@ -34,7 +34,7 @@ def to_xml(df, filename=None, mode='w+'):
                     xml.append(f'            <{col_name}>{item}</{col_name}>')
                 xml.append(f'        </{parent_tag}>')
             # case for regular columns
-            else:
+            elif not pd.isna(row.iloc[i]): # skip nan
                 xml.append(f'        <{col_name}>{row.iloc[i]}</{col_name}>')
         xml.append('    </movie>')
         return '\n'.join(xml)

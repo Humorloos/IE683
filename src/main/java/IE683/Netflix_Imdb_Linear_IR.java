@@ -46,7 +46,7 @@ public class Netflix_Imdb_Linear_IR {
         logger.info("*\tLoading gold standard\t*");
         MatchingGoldStandard gsTest = new MatchingGoldStandard();
         gsTest.loadFromCSVFile(new File(
-                "data/Movies/gold_standards/gs_netflix_imdb_mini.csv"));
+                "data/Movies/gold_standards/gs_netflix_imdb.csv"));
 
         // create a matching rule
         LinearCombinationMatchingRule<Movie, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
