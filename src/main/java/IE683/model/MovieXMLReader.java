@@ -16,14 +16,13 @@ import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
 import org.w3c.dom.Node;
-import winterMoviesExample.model.Actor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 /**
- * A {@link XMLMatchableReader} for {@link Actor}s.
+ * A {@link XMLMatchableReader} for {@link Movie}s.
  *
  * @author Oliver Lehmberg (oli@dwslab.de)
  */
