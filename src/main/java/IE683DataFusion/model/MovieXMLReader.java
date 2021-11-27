@@ -11,13 +11,25 @@
  */
 package IE683DataFusion.model;
 
-import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
-import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
-import org.w3c.dom.Node;
-import winterMoviesExample.model.Actor;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Node;
+
+import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.model.Movie;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
+import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
+import winterMoviesExample.model.Actor;
+
 
 /**
  * A {@link XMLMatchableReader} for {@link Actor}s.
@@ -87,4 +99,20 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> {
         return value == null ? null : LocalDateTime.parse("1894-10-09 00:00:00",
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
+    
+    @Override
+	public Movie createInstanceForFusion(RecordGroup<Movie, Attribute> cluster) {
+	
+	List<String> ids = new LinkedList<>();
+	
+	for (Movie m : cluster.getRecords()) {
+		ids.add(m.getIdentifier());
+	}
+	
+	Collections.sort(ids);
+	
+	String mergedId = StringUtils.join(ids, '+');
+	
+	return new Movie(mergedId, "fused");
+	}
 }
