@@ -11,6 +11,8 @@
  */
 package IE683.model;
 
+import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
 import org.w3c.dom.Node;
@@ -18,13 +20,14 @@ import winterMoviesExample.model.Actor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 /**
  * A {@link XMLMatchableReader} for {@link Actor}s.
  *
  * @author Oliver Lehmberg (oli@dwslab.de)
  */
-public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> {
+public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> implements FusibleFactory<Movie, Attribute> {
 
     @Override
     public Movie createModelFromElement(Node node, String provenanceInfo) {
@@ -86,5 +89,11 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> {
         String value = getValueFromChildElement(node, childName);
         return value == null ? null : LocalDateTime.parse("1894-10-09 00:00:00",
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    @Override
+    public Movie createInstanceForFusion(RecordGroup<Movie, Attribute> cluster) {
+        return new Movie(cluster.getRecords().stream().map(Movie::getIdentifier).sorted()
+                .collect(Collectors.joining("+")), "fused");
     }
 }
