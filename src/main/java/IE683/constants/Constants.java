@@ -1,5 +1,8 @@
 package IE683.constants;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Constants {
-    public static final String XML_FILES_DIR = "C:\\Users\\lloos\\Google Drive\\IE683";
+    public static final Path XML_FILES_DIR = Paths.get("data", "Movies", "input");
 }
