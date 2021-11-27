@@ -17,6 +17,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -28,9 +30,20 @@ import java.util.*;
 public class Movie extends AbstractRecord<Attribute> implements Serializable {
 
     public static final Attribute SOURCE = new Attribute("Source");
-    public static final Attribute TITLE = new Attribute("title");
     public static final Attribute ACTORS = new Attribute("actors");
+    public static final Attribute COUNTRIES = new Attribute("countries");
     public static final Attribute DIRECTORS = new Attribute("directors");
+    public static final Attribute GENRES = new Attribute("genres");
+    public static final Attribute LANGUAGES = new Attribute("languages");
+    public static final Attribute PRODUCTION_COMPANIES = new Attribute("productionCompanies");
+    public static final Attribute WRITERS = new Attribute("writers");
+    public static final Attribute AVG_VOTE = new Attribute("avgVote");
+    public static final Attribute BUDGET = new Attribute("budget");
+    public static final Attribute DURATION = new Attribute("duration");
+    public static final Attribute IMDB_SCORE = new Attribute("imdbScore");
+    public static final Attribute IMDB_VOTES = new Attribute("imdbVotes");
+    public static final Attribute YEAR = new Attribute("year");
+    public static final Attribute TITLE = new Attribute("title");
     /*
      <movie>
         <id>imdb_1</id>
@@ -447,16 +460,30 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
 
     @Override
     public boolean hasValue(Attribute attribute) {
-        if (attribute == SOURCE)
-            return getSource() != null && !getSource().isEmpty();
-        else if (attribute == TITLE)
-            return getTitle() != null && !getTitle().isEmpty();
-        else if (attribute == ACTORS)
-            return getActors() != null;
-        else if (attribute == DIRECTORS)
-            return getDirectors() != null && getDirectors().size() > 0;
-        else
-            return false;
+        Method getAttributeMethod = null;
+        try {
+            getAttributeMethod = this.getClass().getMethod("get" + StringUtils.capitalize(attribute.getIdentifier()));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        Class<?> attributeType = getAttributeMethod.getReturnType();
+        Object attributeValue = null;
+        try {
+            attributeValue = getAttributeMethod.invoke(this);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        if (attributeType == String.class) {
+            String stringAttribute = (String) attributeValue;
+            return stringAttribute != null && !stringAttribute.isEmpty();
+        } else if (attributeType == List.class) {
+            List<String> listAttribute = (List<String>) attributeValue;
+            return listAttribute != null && listAttribute.size() > 0;
+        } else if (attributeType == Double.class) {
+            return attributeValue != null;
+        }
+        return false;
     }
 
     @Override
