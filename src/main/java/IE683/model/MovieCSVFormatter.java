@@ -15,7 +15,7 @@ public class MovieCSVFormatter extends CSVDataSetFormatter<Movie, Attribute> {
 		// Returning all attributes with reference to integrated schema structure.
 		return new String[] { "id", "source", "genre", "title", 
 				              "actor_names", "release_year", "director", 
-				              "duration", "language", "imdb_votes", 
+				              "duration", "languages", "imdb_votes", 
 				              "production_company", "imdb_score", 
 				              "writer", "avg_vote", "country", "budget", 
 				              "original_title", "reviews_from_critics", 

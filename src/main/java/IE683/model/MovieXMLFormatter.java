@@ -138,13 +138,13 @@ public class MovieXMLFormatter extends XMLFormatter<Movie> {
 		return movie;
 	}
 
-	/*protected Element createTextElementWithProvenance(String name,
+	protected Element createTextElementWithProvenance(String name,
 			String value, String provenance, Document doc) {
 		Element elem = createTextElement(name, value, doc);
 		elem.setAttribute("provenance", provenance);
 		return elem;
 	}
-
+   /*
 	protected Element createActorsElement(Movie record, Document doc) {
 		Element actorRoot = actorFormatter.createRootElement(doc);
 

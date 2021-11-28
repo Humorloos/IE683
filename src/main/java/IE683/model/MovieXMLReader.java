@@ -48,7 +48,7 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> impleme
         Movie.setImdb_link(getValueFromChildElement(node, "imdb_link"));
         Movie.setNetflix_link(getValueFromChildElement(node, "netflix_link"));
         Movie.setPoster(getValueFromChildElement(node, "poster"));
-        Movie.setSeries_or_movie(getValueFromChildElement(node, "series_or_Netflix_movies"));
+        Movie.setSeries_or_movie(getValueFromChildElement(node, "series_or_Netflix"));
         Movie.setDisney_flag(getValueFromChildElement(node, "disney_flag"));
         Movie.setHulu_flag(getValueFromChildElement(node, "hulu_flag"));
         Movie.setNetflix_flag(getValueFromChildElement(node, "netflix_flag"));
