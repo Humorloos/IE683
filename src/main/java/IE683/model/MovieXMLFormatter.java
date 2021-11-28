@@ -18,9 +18,9 @@ import de.uni_mannheim.informatik.dws.winter.model.io.XMLFormatter;
 
 /**
  * {@link XMLFormatter} for {@link Movie}s.
- * 
+ *
  * @author Oliver Lehmberg (oli@dwslab.de)
- * 
+ *
  */
 public class MovieXMLFormatter extends XMLFormatter<Movie> {
 
@@ -44,7 +44,7 @@ public class MovieXMLFormatter extends XMLFormatter<Movie> {
 				record.getSource(),
 				doc));
 		movie.appendChild(createTextElement("imdbVotes",
-				record.getImdbVotes(),
+				record.getImdb_votes(),
 				doc));
 		movie.appendChild(createTextElement("original_title",
 				record.getOriginal_title(),
@@ -86,10 +86,10 @@ public class MovieXMLFormatter extends XMLFormatter<Movie> {
 				record.getPrime_video_flag(),
 				doc));
 		movie.appendChild(createTextElement("imdbScore",
-				record.getImdbScore(),
+				record.getImdb_score(),
 				doc));
 		movie.appendChild(createTextElement("avgVote",
-				record.getAvgVote(),
+				record.getAvg_vote(),
 				doc));
 		movie.appendChild(createTextElement("budget",
 				record.getBudget(),
@@ -107,7 +107,7 @@ public class MovieXMLFormatter extends XMLFormatter<Movie> {
 				record.getNetflix_release_date(),
 				doc));
 		movie.appendChild(createTextElement("productionCompanies",
-				record.getProductionCompanies(),
+				record.getProduction_companies(),
 				doc));
 		movie.appendChild(createTextElement("genres",
 				record.getGenres(),
