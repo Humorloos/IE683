@@ -39,7 +39,7 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> impleme
         Movie.setId(getValueFromChildElement(node, "id"));
         Movie.setTitle(getValueFromChildElement(node, "title"));
         Movie.setSource(getValueFromChildElement(node, "source"));
-        Movie.setImdbVotes(getValueFromChildElement(node, "imdb_votes"));
+        Movie.setImdb_votes(getValueFromChildElement(node, "imdb_votes"));
         Movie.setOriginal_title(getValueFromChildElement(node, "original_title"));
         Movie.setReviews_from_critics(getValueFromChildElement(node, "reviews_from_critics"));
         Movie.setReviews_from_users(getValueFromChildElement(node, "review_from_users"));
@@ -53,14 +53,14 @@ public class MovieXMLReader extends XMLMatchableReader<Movie, Attribute> impleme
         Movie.setHulu_flag(getValueFromChildElement(node, "hulu_flag"));
         Movie.setNetflix_flag(getValueFromChildElement(node, "netflix_flag"));
         Movie.setPrime_video_flag(getValueFromChildElement(node, "prime_video_flag"));
-        Movie.setImdbScore(getDoubleFromChildElement(node, "imdb_score"));
-        Movie.setAvgVote(getDoubleFromChildElement(node, "avg_vote"));
+        Movie.setImdb_score(getDoubleFromChildElement(node, "imdb_score"));
+        Movie.setAvg_vote(getDoubleFromChildElement(node, "avg_vote"));
         Movie.setBudget(getDoubleFromChildElement(node, "budget"));
         Movie.setHidden_gem_score(getDoubleFromChildElement(node, "hidden_gem_score"));
         Movie.setDuration(getDoubleFromChildElement(node, "duration"));
         Movie.setReleaseYear(getDoubleFromChildElement(node, "release_year"));
         Movie.setNetflix_release_date(getDateFromChildElement(node, "netflix_release_date"));
-        Movie.setProductionCompanies(getListFromChildElement(node, "production_companies"));
+        Movie.setProduction_companies(getListFromChildElement(node, "production_companies"));
         Movie.setGenres(getListFromChildElement(node, "genres"));
         Movie.setActors(getListFromChildElement(node, "actors"));
         Movie.setDirectors(getListFromChildElement(node, "directors"));
