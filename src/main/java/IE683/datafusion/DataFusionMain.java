@@ -7,32 +7,57 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.Locale;
 
+import IE683.blocker.ReleaseYearBlocker;
+import IE683.comparator.numeric.AvgVoteComparator;
+import IE683.constants.Constants;
+import IE683.evaluationRule.list.ActorsEvaluationRule;
+import IE683.evaluationRule.list.CountriesEvaluationRule;
+import IE683.evaluationRule.list.GenresEvaluationRule;
+import IE683.evaluationRule.list.LanguagesEvaluationRule;
+import IE683.evaluationRule.list.ProductionCompaniesEvaluationRule;
+import IE683.evaluationRule.list.WritersEvaluationRule;
+import IE683.evaluationRule.numeric.AvgVoteEvaluationRule;
+import IE683.evaluationRule.numeric.BudgetEvaluationRule;
+import IE683.evaluationRule.numeric.DurationEvaluationRule;
+import IE683.evaluationRule.numeric.ImdbScoreEvaluationRule;
+import IE683.evaluationRule.numeric.ImdbVotesEvaluationRule;
+import IE683.evaluationRule.string.TitleEvaluationRule;
+import IE683.fuser.list.WritersFuser;
+import IE683.fuser.numeric.YearFuser;
+import IE683.fuser.numeric.average.AvgVoteFuser;
+import IE683.fuser.numeric.average.BudgetFuser;
+import IE683.fuser.numeric.average.DurationFuser;
+import IE683.fuser.numeric.average.ImdbScoreFuser;
+import IE683.fuser.numeric.average.ImdbVotesFuser;
+import IE683.fuser.TitleFuser;
+import IE683.fuser.list.ActorsFuser; // I guess, it needs to be implemented, right?
+import IE683.fuser.list.CountriesFuser;
+import IE683.fuser.list.DirectorsFuser;
+import IE683.fuser.list.GenresFuser;
+import IE683.fuser.list.LanguagesFuser;
+import IE683.fuser.list.ProductionCompaniesFuser;
 import IE683.model.Movie;
 import IE683.model.MovieXMLFormatter;
 import IE683.model.MovieXMLReader;
-/*
-import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.evaluation.ActorsEvaluationRule;
-import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.evaluation.DateEvaluationRule;
-import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.evaluation.DirectorEvaluationRule;
-import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.evaluation.TitleEvaluationRule;
-import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.fusers.ActorsFuserUnion;
-import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.fusers.DateFuserFavourSource;
-import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.fusers.DateFuserVoting;
-import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.fusers.DirectorFuserLongestString;
-import de.uni_mannheim.informatik.dws.wdi.ExerciseDataFusion.fusers.TitleFuserShortestString;
-*/
+import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.datafusion.CorrespondenceSet;
 import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionEngine;
 import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionEvaluator;
 import de.uni_mannheim.informatik.dws.winter.datafusion.DataFusionStrategy;
-import de.uni_mannheim.informatik.dws.winter.model.DataSet;
+import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRuleWithPenalty;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.FusibleDataSet;
-import de.uni_mannheim.informatik.dws.winter.model.FusibleHashedDataSet;
-import de.uni_mannheim.informatik.dws.winter.model.RecordGroupFactory;
+import de.uni_mannheim.informatik.dws.winter.model.HashedDataSet;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
+import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
-import org.slf4j.Logger;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroupFactory;
+import de.uni_mannheim.informatik.dws.winter.model.DataSet;
 
+
+import org.slf4j.Logger;
 
 public class DataFusionMain {
 	
@@ -43,14 +68,15 @@ public class DataFusionMain {
 		// Load the Data into FusibleDataSet
 		logger.info("*\tLoading datasets\t*");
 		
-		FusibleDataSet<Movie, Attribute> ds1 = new FusibleHashedDataSet<>();
+		FusibleDataSet<Movie, Attribute> ds1 =  new FusibleHashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("data/input/netflix.xml"), "/movies/movie", ds1);
 		ds1.printDataSetDensityReport();
 
-		FusibleDataSet<Movie, Attribute> ds2 = new FusibleHashedDataSet<>();
+		FusibleDataSet<Movie, Attribute> ds2 =  new FusibleHashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("data/input/streaming.xml"), "/movies/movie", ds2);
 		ds2.printDataSetDensityReport();
-
+		
+		
 		FusibleDataSet<Movie, Attribute> ds3 = new FusibleHashedDataSet<>();
 		new MovieXMLReader().loadFromXML(new File("data/input/imdb.xml"), "/movies/movie", ds3);
 		ds3.printDataSetDensityReport();
@@ -72,15 +98,16 @@ public class DataFusionMain {
 		ds1.setDate(LocalDateTime.parse("2021-04-27", formatter));
 		ds2.setDate(LocalDateTime.parse("2020-05-23", formatter));
 		ds3.setDate(LocalDateTime.parse("2020-09-15", formatter));
-
+		
 		// load correspondences
 		logger.info("*\tLoading correspondences\t*");
 		CorrespondenceSet<Movie, Attribute> correspondences = new CorrespondenceSet<>();
-		correspondences.loadCorrespondences(new File("data/correspondences/corr_netflix_streaming.csv"),ds1, ds2);
-		correspondences.loadCorrespondences(new File("data/correspondences/corr_netflix_imdb.csv"),ds1, ds3);
+		correspondences.loadCorrespondences(new File("data/correspondances/corr_netflix_streaming.csv"),ds1, ds2);
+		correspondences.loadCorrespondences(new File("data/correspondances/corr_netflix_imdb.csv"),ds1, ds3);
 
 		// write group size distribution
 		correspondences.printGroupSizeDistribution();
+		
 		
 		// load the gold standard
 		logger.info("*\tEvaluating results\t*");
@@ -96,14 +123,24 @@ public class DataFusionMain {
 		// write debug results to file
 		strategy.activateDebugReport("data/output/debugResultsDatafusion.csv", -1, gs);
 		
-		/*
-		// add attribute fusers
-		strategy.addAttributeFuser(Movie.TITLE, new TitleFuserShortestString(),new TitleEvaluationRule());
-		strategy.addAttributeFuser(Movie.DIRECTOR,new DirectorFuserLongestString(), new DirectorEvaluationRule());
-		strategy.addAttributeFuser(Movie.DATE, new DateFuserFavourSource(),new DateEvaluationRule());
-		strategy.addAttributeFuser(Movie.ACTORS,new ActorsFuserUnion(),new ActorsEvaluationRule());
-		*/
 		
+		// adding attribute fuser strategies based on Honglin's insight, new implementations are required, please refer comments for explanations.   
+		// We need a 'Union' of actor, director and writer names to be defined in the below stated rules.
+		strategy.addAttributeFuser(Movie.ACTORS, new ActorsFuser(), new ActorsEvaluationRule()); // ActorsEvaluationRule needs to be changed.
+		strategy.addAttributeFuser(Movie.DIRECTORS, new DirectorsFuser(), new DirectorsEvaluationRule()); // DirectorsEvaluationRule needs to be changed.
+		strategy.addAttributeFuser(Movie.WRITERS, new WritersFuser(), new WritersEvaluationRule()); // WritersEvaluationRule needs to be changed.
+		// Ideally, we should just copy title from IMDb, in case that doesn't work let's go for longest string.
+		strategy.addAttributeFuser(Movie.TITLE, new TitleFuser(), new TitleEvaluationRule()); // TitleEvaluationRule should directly take data from IMDb dataset, if possible. 
+		strategy.addAttributeFuser(Movie.COUNTRIES, new CountriesFuser(), new CountriesEvaluationRule(0.80)); // Looks good from my end, no changes required.
+		strategy.addAttributeFuser(Movie.LANGUAGES, new LanguagesFuser(), new LanguagesEvaluationRule(0.80)); // Looks good from my end, no changes required.
+		strategy.addAttributeFuser(Movie.GENRES, new GenresFuser(), new GenresEvaluationRule(0.90)); // Looks good from my end, no changes required.
+		strategy.addAttributeFuser(Movie.PRODUCTION_COMPANIES, new ProductionCompaniesFuser(), new ProductionCompaniesEvaluationRule(0.75)); // Looks good from my end, no changes required.
+		strategy.addAttributeFuser(Movie.AVG_VOTE, new AvgVoteFuser(), new AvgVoteEvaluationRule()); // We should take average of IMDb + Streaming data values with more weightage to IMDb field.
+		strategy.addAttributeFuser(Movie.BUDGET, new BudgetFuser(), new BudgetEvaluationRule()); // We should take average of IMDb + Netflix data values with more weightage to IMDb field.
+		strategy.addAttributeFuser(Movie.DURATION, new DurationFuser(), new DurationEvaluationRule()); // We should take average of IMDb + Streaming data values only with more weightage to IMDb field. (Ignoring Netflix)
+		strategy.addAttributeFuser(Movie.IMDB_SCORE, new ImdbScoreFuser(), new ImdbScoreEvaluationRule()); // We should take average of IMDb + Netflix data values only with more weightage to IMDb field.
+		strategy.addAttributeFuser(Movie.IMDB_VOTES, new ImdbVotesFuser(), new ImdbVotesEvaluationRule()); // We should take average of IMDb + Netflix data values only with more weightage to IMDb field.
+		strategy.addAttributeFuser(Movie.YEAR, new YearFuser(), new YearEvaluationRule()); // We should take smallest value for this amongst all datasets, couldn't find the implementation for this.		
 		
 		// create the fusion engine
 		DataFusionEngine<Movie, Attribute> engine = new DataFusionEngine<>(strategy);
@@ -121,7 +158,6 @@ public class DataFusionMain {
 		// evaluate
 		DataFusionEvaluator<Movie, Attribute> evaluator = new DataFusionEvaluator<>(strategy, new RecordGroupFactory<Movie, Attribute>());
 		double accuracy = evaluator.evaluate(fusedDataSet, gs, null);
-		logger.info(String.format("*\tAccuracy: %.2f", accuracy));
-		
+		logger.info(String.format("*\tAccuracy: %.2f", accuracy));	
     }
 }
