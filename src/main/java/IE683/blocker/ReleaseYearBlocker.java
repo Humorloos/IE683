@@ -14,7 +14,7 @@ public class ReleaseYearBlocker extends
     @Override
     public void generateBlockingKeys(Movie record, Processable<Correspondence<Attribute, Matchable>> correspondences,
                                      DataIterator<Pair<String, Movie>> resultCollector) {
-        Double releaseYear = record.getReleaseYear();
+        Double releaseYear = record.getRelease_year();
         resultCollector.next(new Pair<>(releaseYear == null ? "" : releaseYear.toString(), record));
     }
 }
