@@ -29,7 +29,6 @@ import java.util.*;
  */
 public class Movie extends AbstractRecord<Attribute> implements Serializable {
 
-	public static final Attribute ID = new Attribute("id");
 	public static final Attribute SOURCE = new Attribute("source");
     public static final Attribute ACTORS = new Attribute("actors");
     public static final Attribute COUNTRIES = new Attribute("countries");
@@ -43,9 +42,9 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
     public static final Attribute DURATION = new Attribute("duration");
     public static final Attribute IMDB_SCORE = new Attribute("imdb_score");
     public static final Attribute IMDB_VOTES = new Attribute("imdb_votes");
-    public static final Attribute YEAR = new Attribute("year");
+    public static final Attribute YEAR = new Attribute("release_year");
     public static final Attribute TITLE = new Attribute("title");
-    public static final Attribute RELEASE_YEAR = new Attribute("release_year");
+    
     /*
      <movie>
         <id>imdb_1</id>
