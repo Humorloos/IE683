@@ -8,7 +8,10 @@ target_df = get_integrated_schema_target_df()
 imdb_df = pd.read_csv(MOVIES_DATA_DIR.joinpath('imdb.csv'))
 
 #Remove duplicates
-imdb_df=imdb_df.drop_duplicates(subset=['title','year'])
+imdb_df = imdb_df.drop_duplicates(subset=['title','year'])
+
+#Replace None by nan in lanugage attribute
+imdb_df = imdb_df['language'].replace('None', np.nan, inplace=True)
 
 #Changing datatype of year to integer
 imdb_df=imdb_df[pd.to_numeric(imdb_df['year'], errors='coerce').notnull()]
