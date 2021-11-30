@@ -12,15 +12,15 @@ public class MovieCSVFormatter extends CSVDataSetFormatter<Movie, Attribute> {
 
 	@Override
 	public String[] getHeader(List<Attribute> orderedHeader) {
-		// Returning all attributes with reference to integrated schema structure.
-		return new String[] { "id", "source", "genre", "title", 
-				              "actor_names", "release_year", "director", 
+		// returning all attributes with reference to integrated schema structure.
+		return new String[] { "id", "source", "genres", "title", 
+				              "actors", "release_year", "directors", 
 				              "duration", "languages", "imdb_votes", 
-				              "production_company", "imdb_score", 
-				              "writer", "avg_vote", "country", "budget", 
+				              "production_companies", "imdb_score", 
+				              "writers", "avg_vote", "countries", "budget", 
 				              "original_title", "reviews_from_critics", 
 				              "reviews_from_users", "title_id", 
-				              "country_availability", "hidden_gem_score", "image", 
+				              "countries_availability", "hidden_gem_score", "image", 
 				              "imdb_link", "netflix_link", "netflix_release_date", 
 				              "poster", "series_or_movie", "tags", "disney_flag", 
 				              "hulu_flag", "netflix_flag", "prime_video_flag" };
@@ -67,8 +67,10 @@ public class MovieCSVFormatter extends CSVDataSetFormatter<Movie, Attribute> {
 	
 	@Override
 	public String[] format(Movie record, DataSet<Movie, Attribute> dataset, List<Attribute> orderedHeader) {
-		// Returning all attributes with reference to integrated schema structure.
-		// Converting list, double and date attributes to string values
+		// returning all attributes with reference to integrated schema structure.
+		
+		// Converting list attributes to Strings
+		
 		return new String[] {
 				record.getIdentifier(),
 				record.getSource(),
