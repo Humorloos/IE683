@@ -44,31 +44,31 @@ public class Netflix_Imdb_Linear_IR {
         matchingRule.activateDebugReport("data/Movies/output/netflix_imdb_debugResultsMatchingRule.csv", 5000, gsTest);
 
         // add comparators
-        matchingRule.addComparator(new TitleComparator(), 0.7);
-        //matchingRule.addComparator(new TitleJaccardLevenComparator(), 0.7);
+        matchingRule.addComparator(new TitleComparator(), 0.4);
+        //matchingRule.addComparator(new TitleJaccardLevenComparator(), 0.6);
 
-        matchingRule.addComparator(new Year2Comparator(), 0.05);
-        //matchingRule.addComparator(new Year5Comparator(), 0.05);
+        matchingRule.addComparator(new Year2Comparator(), 0.2);
+        //matchingRule.addComparator(new Year5Comparator(), 0.4);
 
-        matchingRule.addComparator(new DirectorsOverlapComparator(), 0.05 );
-        //matchingRule.addComparator(new DirectorsComparator(0.8), 0.05);
+        matchingRule.addComparator(new DirectorsOverlapComparator(), 0.1 );
+        //matchingRule.addComparator(new DirectorsComparator(0.8), 0.2);
 
-        matchingRule.addComparator(new ActorsOverlapComparator(), 0.05 );
+        matchingRule.addComparator(new WritersOverlapComparator(), 0.1 );
+        //matchingRule.addComparator(new WritersComparator(0.8), 0.05);
+
+        matchingRule.addComparator(new ActorsOverlapComparator(), 0.1 );
         //matchingRule.addComparator(new ActorsComparator(0.8), 0.05);
 
         matchingRule.addComparator(new GenresOverlapComparator(), 0.05 );
         //matchingRule.addComparator(new GenresComparator(0.8), 0.05);
 
-        matchingRule.addComparator(new WritersOverlapComparator(), 0.05 );
-        //matchingRule.addComparator(new WritersComparator(0.8), 0.05);
-
         matchingRule.addComparator(new LanguageOverlapComparator(), 0.05 );
         //matchingRule.addComparator(new LanguagesComparator(0.8), 0.05);
 
         // create a blocker (blocking strategy)
-        StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<>(new Title2Blocker());
+        StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new Title2Blocker());
 //		NoBlocker<Movie, Attribute> blocker = new NoBlocker<>();
-//		SortedNeighbourhoodBlocker<Movie, Attribute, Attribute> blocker = new SortedNeighbourhoodBlocker<>(new MovieBlockingKeyByTitleGenerator(), 1);
+        //SortedNeighbourhoodBlocker<Movie, Attribute, Attribute> blocker = new SortedNeighbourhoodBlocker<>(new TitleBlocker(), 100);
         blocker.setMeasureBlockSizes(true);
         //Write debug results to file:
         blocker.collectBlockSizeData("data/Movies/output/netflix_imdb_debugResultsBlocking.csv", 100);

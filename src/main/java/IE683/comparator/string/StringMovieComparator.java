@@ -5,7 +5,7 @@ import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimila
 
 public abstract class StringMovieComparator extends MovieComparator<String> {
     StringMovieComparator(String attributeName) throws NoSuchMethodException {
-        super(new LevenshteinSimilarity(), attributeName);
+        super(new LowerLevenSimilarity(), attributeName);
     }
 }
 

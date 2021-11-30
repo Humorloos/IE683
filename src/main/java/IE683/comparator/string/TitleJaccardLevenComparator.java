@@ -6,7 +6,7 @@ import de.uni_mannheim.informatik.dws.winter.similarity.string.GeneralisedString
 
 public class TitleJaccardLevenComparator extends MovieComparator<String> {
     public TitleJaccardLevenComparator() throws NoSuchMethodException {
-        super(new GeneralisedStringJaccard(new LevenshteinSimilarity(), 0.8, 0.8), "Title");
+        super(new GeneralisedStringJaccard(new LowerLevenSimilarity(), 0.8, 0.8), "Title");
     }
 }
 
