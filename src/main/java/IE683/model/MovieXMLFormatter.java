@@ -1,15 +1,9 @@
-/*
- * Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and limitations under the License.
- */
 package IE683.model;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,13 +13,29 @@ import de.uni_mannheim.informatik.dws.winter.model.io.XMLFormatter;
 /**
  * {@link XMLFormatter} for {@link Movie}s.
  *
- * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
 public class MovieXMLFormatter extends XMLFormatter<Movie> {
 
-	/*ActorXMLFormatter actorFormatter = new ActorXMLFormatter(); */
+	// Converting the double values into string.
+	public String doubleToStringConvertor(Double value) {
+		if (!value.equals(null)) {
+		String string_value = Double.toString(value);
+		return string_value;
+		}
+		return null;
+	}
 
+	// Converting the date values into string.
+	public String dateToStringConvertor(LocalDateTime value) {
+		if (!value.equals(null)) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String string_value = value.format(formatter); 
+		return string_value;
+		}
+		return null;
+	}
+	
 	@Override
 	public Element createRootElement(Document doc) {
 		return doc.createElement("movies");
@@ -36,16 +46,13 @@ public class MovieXMLFormatter extends XMLFormatter<Movie> {
 		Element movie = doc.createElement("movie");
 
 		movie.appendChild(createTextElement("id", record.getIdentifier(), doc));
-
-		movie.appendChild(createTextElement("title",
+		// movie.appendChild(createTextElement("source",record.getSource(), doc)); // Not present in the final gold standard file.		
+		movie.appendChild(createTextElementWithProvenance("title",
 				record.getTitle(),
-				doc));
-		movie.appendChild(createTextElement("source",
-				record.getSource(),
-				doc));
-		movie.appendChild(createTextElement("imdbVotes",
-				record.getImdb_votes(),
-				doc));
+				record.getMergedAttributeProvenance(Movie.TITLE), doc));
+		movie.appendChild(createTextElementWithProvenance("imdb_votes",
+				doubleToStringConvertor(record.getImdb_votes()),
+				record.getMergedAttributeProvenance(Movie.IMDB_VOTES), doc));		
 		movie.appendChild(createTextElement("original_title",
 				record.getOriginal_title(),
 				doc));
@@ -85,55 +92,61 @@ public class MovieXMLFormatter extends XMLFormatter<Movie> {
 		movie.appendChild(createTextElement("prime_video_flag",
 				record.getPrime_video_flag(),
 				doc));
-		movie.appendChild(createTextElement("imdbScore",
-				record.getImdb_score(),
-				doc));
-		movie.appendChild(createTextElement("avgVote",
-				record.getAvg_vote(),
-				doc));
-		movie.appendChild(createTextElement("budget",
-				record.getBudget(),
-				doc));
+		movie.appendChild(createTextElementWithProvenance("imdb_score",
+				doubleToStringConvertor(record.getImdb_score()),
+				record.getMergedAttributeProvenance(Movie.IMDB_SCORE), doc));
+		movie.appendChild(createTextElementWithProvenance("avg_vote",
+				doubleToStringConvertor(record.getAvg_vote()),
+				record.getMergedAttributeProvenance(Movie.AVG_VOTE), doc));
+		movie.appendChild(createTextElementWithProvenance("budget",
+				doubleToStringConvertor(record.getBudget()),
+				record.getMergedAttributeProvenance(Movie.BUDGET), doc));
 		movie.appendChild(createTextElement("hidden_gem_score",
-				record.getHidden_gem_score(),
+				doubleToStringConvertor(record.getHidden_gem_score()),
 				doc));
 		movie.appendChild(createTextElement("duration",
-				record.getDuration(),
+				doubleToStringConvertor(record.getDuration()),
 				doc));
-		movie.appendChild(createTextElement("releaseYear",
-				record.getReleaseYear(),
+		movie.appendChild(createTextElement("release_year",
+				doubleToStringConvertor(record.getRelease_year()),
 				doc));
 		movie.appendChild(createTextElement("netflix_release_date",
-				record.getNetflix_release_date(),
+				dateToStringConvertor(record.getNetflix_release_date()),
 				doc));
-		movie.appendChild(createTextElement("productionCompanies",
+		movie.appendChild(createListElementWithProvenance("production_companies",
 				record.getProduction_companies(),
+				record.getMergedAttributeProvenance(Movie.PRODUCTION_COMPANIES),
 				doc));
-		movie.appendChild(createTextElement("genres",
+		movie.appendChild(createListElementWithProvenance("genres",
 				record.getGenres(),
+				record.getMergedAttributeProvenance(Movie.GENRES),
 				doc));
-		movie.appendChild(createTextElement("actors",
+		movie.appendChild(createListElementWithProvenance("actors",
 				record.getActors(),
-				doc));
-		movie.appendChild(createTextElement("directors",
+				record.getMergedAttributeProvenance(Movie.ACTORS),
+				doc));		
+		movie.appendChild(createListElementWithProvenance("directors",
 				record.getDirectors(),
+				record.getMergedAttributeProvenance(Movie.DIRECTORS),
 				doc));
-		movie.appendChild(createTextElement("languages",
+		movie.appendChild(createListElementWithProvenance("languages",
 				record.getLanguages(),
+				record.getMergedAttributeProvenance(Movie.LANGUAGES),
 				doc));
-		movie.appendChild(createTextElement("writers",
+		movie.appendChild(createListElementWithProvenance("writers",
 				record.getWriters(),
+				record.getMergedAttributeProvenance(Movie.WRITERS),
 				doc));
-		movie.appendChild(createTextElement("countries",
+		movie.appendChild(createListElementWithProvenance("countries",
+				record.getCountries(),
+				record.getMergedAttributeProvenance(Movie.COUNTRIES),
+				doc));
+		movie.appendChild(createListElement("countries_availability",
 				record.getCountries(),
 				doc));
-		movie.appendChild(createTextElement("countries_availability",
-				record.getCountries_availability(),
-				doc));
-		movie.appendChild(createTextElement("tags",
+		movie.appendChild(createListElement("tags",
 				record.getTags(),
 				doc));
-		/*movie.appendChild(createActorsElement(record, doc));*/
 
 		return movie;
 	}
@@ -144,16 +157,40 @@ public class MovieXMLFormatter extends XMLFormatter<Movie> {
 		elem.setAttribute("provenance", provenance);
 		return elem;
 	}
-   /*
-	protected Element createActorsElement(Movie record, Document doc) {
-		Element actorRoot = actorFormatter.createRootElement(doc);
+	
+	
+	protected Element createListElementWithProvenance(String name,
+			List<String> value, String provenance, Document doc) {
+		Element elemRoot = doc.createElement(name);
+		HashMap<String, String> tagXMLMap = new HashMap<>();
+		tagXMLMap.put("country", "countries");
+		tagXMLMap.put("genre", "genres");
+		tagXMLMap.put("actor_names", "actors");
+		tagXMLMap.put("director", "directors");
+		tagXMLMap.put("language", "languages");
+		tagXMLMap.put("production_company", "production_companies");
+		tagXMLMap.put("writer", "writers");
 
-		for (Actor a : record.getActors()) {
-			actorRoot.appendChild(actorFormatter
-					.createElementFromRecord(a, doc));
-		}
-
-		return actorRoot;
-	} */
-
+		if (value != null) {
+		for (String val : value) {
+			elemRoot.appendChild(createTextElement(tagXMLMap.get(name), val, doc));
+			}
+		}	
+		elemRoot.setAttribute("provenance", provenance);
+		return elemRoot;
+	}
+	
+	protected Element createListElement(String name, List<String> value, Document doc) {
+		Element elemRoot = doc.createElement(name);
+		HashMap<String, String> tagXMLMap = new HashMap<>();
+		tagXMLMap.put("tags", "tags");
+		tagXMLMap.put("countries_availability", "country_availability");
+		if (value != null) {
+		for (String val : value) {
+			elemRoot.appendChild(createTextElement(tagXMLMap.get(name), val, doc));
+			}
+		}	
+		return elemRoot;
+	}
+	
 }
