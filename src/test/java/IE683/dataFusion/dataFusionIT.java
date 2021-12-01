@@ -32,7 +32,7 @@ public class dataFusionIT {
         FusibleDataSet<Movie, Attribute> streamingData = Utils.loadFusibleDataset("streaming");
         FusibleDataSet<Movie, Attribute> netflixData = Utils.loadFusibleDataset("netflix");
         CorrespondenceSet<Movie, Attribute> correspondences = new CorrespondenceSet<>();
-        correspondences.loadCorrespondences(Constants.OUTPUT_DIR.resolve("gold_standard_year_blocker_base.csv")
+        correspondences.loadCorrespondences(Constants.OUTPUT_DIR.resolve("netflix_2_streaming_correspondences.csv")
                 .toFile(), streamingData, netflixData);
         DataFusionStrategy<Movie, Attribute> strategy = new DataFusionStrategy<>(new MovieXMLReader());
         strategy.addAttributeFuser(TITLE, new TitleFuser(), new TitleEvaluationRule());

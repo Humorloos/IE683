@@ -56,7 +56,8 @@ public class StreamingGoldStandardPreparator {
 
         // write the correspondences to the output file
         // new CSVCorrespondenceFormatter().writeCSV(new File("data/output/gold_standard_base.csv"), correspondences);
-        new CSVCorrespondenceFormatter().writeCSV(new File("data/output/gold_standard_year_blocker_base.csv"), correspondences);
+        new CSVCorrespondenceFormatter().writeCSV(
+                new File("data/Movies/output/netflix_2_streaming_correspondences.csv"), correspondences);
     }
 
 

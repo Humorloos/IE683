@@ -1,6 +1,5 @@
 package IE683.datafusion;
 
-import IE683.constants.Constants;
 import IE683.evaluationRule.list.*;
 import IE683.evaluationRule.numeric.*;
 import IE683.evaluationRule.string.TitleEvaluationRule;
@@ -9,6 +8,7 @@ import IE683.fuser.list.*;
 import IE683.fuser.numeric.YearFuser;
 import IE683.fuser.numeric.average.*;
 import IE683.model.Movie;
+import IE683.model.MovieXMLFormatter;
 import IE683.model.MovieXMLReader;
 import IE683.utils.Utils;
 import de.uni_mannheim.informatik.dws.winter.datafusion.CorrespondenceSet;
@@ -24,48 +24,13 @@ import de.uni_mannheim.informatik.dws.winter.utils.WinterLogManager;
 import org.slf4j.Logger;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
-import java.util.Locale;
 
 public class DataFusionMain {
 
     private static final Logger logger = WinterLogManager.activateLogger("default");
 
     public static void main(String[] args) throws Exception {
-        // Load the Data into FusibleDataSet
-        logger.info("*\tLoading datasets\t*");
-
-        FusibleDataSet<Movie, Attribute> ds1 = Utils.loadFusibleDataset("netflix");
-        FusibleDataSet<Movie, Attribute> ds2 = Utils.loadFusibleDataset("streaming");
-//		FusibleDataSet<Movie, Attribute> ds3 = Utils.loadFusibleDataset("imdb");
-
-        // Maintain Provenance
-        // Scores (e.g. from rating)
-        ds1.setScore(3.0);
-        ds2.setScore(1.0);
-//		ds3.setScore(2.0);
-
-        // Date (e.g. last update)
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                .appendPattern("yyyy-MM-dd")
-                .parseDefaulting(ChronoField.CLOCK_HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                .toFormatter(Locale.ENGLISH);
-
-        ds1.setDate(LocalDateTime.parse("2021-04-27", formatter));
-        ds2.setDate(LocalDateTime.parse("2020-05-23", formatter));
-//		ds3.setDate(LocalDateTime.parse("2020-09-15", formatter));
-
-        // load correspondences
-        logger.info("*\tLoading correspondences\t*");
-        CorrespondenceSet<Movie, Attribute> correspondences = new CorrespondenceSet<>();
-        correspondences.loadCorrespondences(Constants.OUTPUT_DIR.resolve("gold_standard_year_blocker_base.csv")
-                .toFile(), ds2, ds1);
-//		correspondences.loadCorrespondences(new File("data/correspondances/corr_netflix_imdb.csv"),ds1, ds3);
+        CorrespondenceSet<Movie, Attribute> correspondences = Utils.getCorrespondences();
 
         // write group size distribution
         correspondences.printGroupSizeDistribution();
@@ -112,11 +77,12 @@ public class DataFusionMain {
         logger.info("*\tRunning data fusion\t*");
         FusibleDataSet<Movie, Attribute> fusedDataSet = engine.run(correspondences, null);
         // write the result
-//		new MovieXMLFormatter().writeXML(new File("data/output/fused.xml"), fusedDataSet);
+		new MovieXMLFormatter().writeXML(new File("data/output/fused.xml"), fusedDataSet);
 
         // evaluate
-        DataFusionEvaluator<Movie, Attribute> evaluator = new DataFusionEvaluator<>(strategy, new RecordGroupFactory<Movie, Attribute>());
+        DataFusionEvaluator<Movie, Attribute> evaluator = new DataFusionEvaluator<>(strategy, new RecordGroupFactory<>());
         double accuracy = evaluator.evaluate(fusedDataSet, gs, null);
         logger.info(String.format("*\tAccuracy: %.2f", accuracy));
     }
+
 }
