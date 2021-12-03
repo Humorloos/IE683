@@ -2,12 +2,14 @@ package IE683;
 
 import IE683.blocker.Title2Blocker;
 import IE683.comparator.list.*;
+import IE683.comparator.numeric.ImdbScoreAbsoluteComparator;
 import IE683.comparator.numeric.Year2Comparator;
 import IE683.comparator.string.TitleComparator;
 import IE683.model.Movie;
 import IE683.utils.Utils;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.NoBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -45,33 +47,25 @@ public class Netflix_Imdb_Linear_IR {
 
         // add comparators
         matchingRule.addComparator(new TitleComparator(), 0.4);
-        //matchingRule.addComparator(new TitleJaccardLevenComparator(), 0.6);
+        //matchingRule.addComparator(new TitleJaccardLevenComparator(), 0.4);
 
-        matchingRule.addComparator(new Year2Comparator(), 0.2);
+        matchingRule.addComparator(new Year2Comparator(), 0.15);
         //matchingRule.addComparator(new Year5Comparator(), 0.4);
 
-        matchingRule.addComparator(new DirectorsOverlapComparator(), 0.1 );
-        //matchingRule.addComparator(new DirectorsComparator(0.8), 0.2);
-
-        matchingRule.addComparator(new WritersOverlapComparator(), 0.1 );
-        //matchingRule.addComparator(new WritersComparator(0.8), 0.05);
-
-        matchingRule.addComparator(new ActorsOverlapComparator(), 0.1 );
-        //matchingRule.addComparator(new ActorsComparator(0.8), 0.05);
-
-        matchingRule.addComparator(new GenresOverlapComparator(), 0.05 );
-        //matchingRule.addComparator(new GenresComparator(0.8), 0.05);
-
-        matchingRule.addComparator(new LanguageOverlapComparator(), 0.05 );
-        //matchingRule.addComparator(new LanguagesComparator(0.8), 0.05);
+        matchingRule.addComparator(new ImdbScoreAbsoluteComparator(), 0.15);
+        matchingRule.addComparator(new DirectorsOverlapComparator(), 0.15 );
+        //matchingRule.addComparator(new WritersOverlapComparator(), 0.15 );
+        matchingRule.addComparator(new ActorsOverlapComparator(), 0.15 );
+        //matchingRule.addComparator(new GenresOverlapComparator(), 0.025 );
+        //matchingRule.addComparator(new LanguageOverlapComparator(), 0.025 );
 
         // create a blocker (blocking strategy)
-        StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new Title2Blocker());
-//		NoBlocker<Movie, Attribute> blocker = new NoBlocker<>();
+        //StandardRecordBlocker<Movie, Attribute> blocker = new StandardRecordBlocker<Movie, Attribute>(new Title2Blocker());
+		NoBlocker<Movie, Attribute> blocker = new NoBlocker<>();
         //SortedNeighbourhoodBlocker<Movie, Attribute, Attribute> blocker = new SortedNeighbourhoodBlocker<>(new TitleBlocker(), 100);
-        blocker.setMeasureBlockSizes(true);
+        //blocker.setMeasureBlockSizes(true);
         //Write debug results to file:
-        blocker.collectBlockSizeData("data/Movies/output/netflix_imdb_debugResultsBlocking.csv", 100);
+        //blocker.collectBlockSizeData("data/Movies/output/netflix_imdb_debugResultsBlocking.csv", 100);
 
         // Initialize Matching Engine
         MatchingEngine<Movie, Attribute> engine = new MatchingEngine<>();
