@@ -102,7 +102,6 @@ public class Movie extends AbstractRecord<Attribute> implements Serializable {
      */
     @Serial
     private static final long serialVersionUID = 1L;
-    protected String id;
     private String source;
     private String title;
     private Double release_year;

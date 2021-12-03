@@ -48,7 +48,7 @@ public class DataFusionMain {
         // define the fusion strategy
         DataFusionStrategy<Movie, Attribute> strategy = new DataFusionStrategy<>(new MovieXMLReader());
         // write debug results to file
-        strategy.activateDebugReport("data/output/debugResultsDatafusion.csv", -1, gs);
+//        strategy.activateDebugReport("data/output/debugResultsDatafusion.csv", -1, gs);
 
 
         strategy.addAttributeFuser(Movie.ACTORS, new ActorsFuser(), new ActorsEvaluationRule(0.7));
