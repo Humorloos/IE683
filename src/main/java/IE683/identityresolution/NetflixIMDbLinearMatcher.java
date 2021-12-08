@@ -1,4 +1,4 @@
-package IE683;
+package IE683.identityresolution;
 
 import IE683.blocker.Title2Blocker;
 import IE683.comparator.list.*;
@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 
 import java.io.File;
 
-public class Netflix_Imdb_Linear_IR {
+public class NetflixIMDbLinearMatcher {
     private static final Logger logger = WinterLogManager.activateLogger("default");
 
     public static void main( String[] args ) throws Exception

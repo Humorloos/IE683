@@ -5,7 +5,7 @@ import de.uni_mannheim.informatik.dws.winter.similarity.numeric.AbsoluteDifferen
 
 public class Year2Comparator extends MovieComparator<Double> {
     public Year2Comparator() throws NoSuchMethodException {
-        super(new AbsoluteDifferenceSimilarity(2), "ReleaseYear");
+        super(new AbsoluteDifferenceSimilarity(2), "Release_year");
     }
 }
 

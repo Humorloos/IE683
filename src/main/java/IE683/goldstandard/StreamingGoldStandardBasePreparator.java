@@ -1,4 +1,4 @@
-package IE683.identityResolution;
+package IE683.goldstandard;
 
 import IE683.blocker.ReleaseYearBlocker;
 import IE683.comparator.string.TitleComparator;
@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import java.io.File;
 
 
-public class StreamingGoldStandardPreparator {
+public class StreamingGoldStandardBasePreparator {
 
     private static final Logger logger = WinterLogManager.activateLogger("default");
 

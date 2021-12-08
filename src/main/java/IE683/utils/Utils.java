@@ -19,7 +19,7 @@ public class Utils {
     public static HashedDataSet<Movie, Attribute> loadDataset(String source) {
         HashedDataSet<Movie, Attribute> dataSet = new HashedDataSet<>();
         try {
-            new MovieXMLReader().loadFromXML(new File(XML_FILES_DIR + "\\" + source + ".xml"),
+            new MovieXMLReader().loadFromXML(new File(XML_FILES_DIR + "//" + source + ".xml"),
                     "movies/movie", dataSet);
         } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException e) {
             e.printStackTrace();
@@ -30,7 +30,7 @@ public class Utils {
     public static FusibleDataSet<Movie, Attribute> loadFusibleDataset(String source) {
         FusibleDataSet<Movie, Attribute> dataSet = new FusibleHashedDataSet<>();
         try {
-            new MovieXMLReader().loadFromXML(new File(XML_FILES_DIR + "\\" + source + ".xml"),
+            new MovieXMLReader().loadFromXML(new File(XML_FILES_DIR + "//" + source + ".xml"),
                     "movies/movie", dataSet);
         } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException e) {
             e.printStackTrace();
